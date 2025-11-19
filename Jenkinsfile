@@ -10,7 +10,7 @@ pipeline {
 
         stage('Compile') {
             steps {
-                bat 'mkdir out'
+                bat 'if not exist out mkdir out'
                 bat 'javac src\\Main.java -d out'
             }
         }
