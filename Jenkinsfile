@@ -4,25 +4,26 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/AshmithaMA/student-management.git'
             }
         }
 
         stage('Compile') {
             steps {
+                bat 'mkdir out'
                 bat 'javac src\\Main.java -d out'
             }
         }
 
         stage('Package JAR') {
             steps {
-                bat 'jar cfe app.jar Main -C out .'
+                bat 'jar cfe out\\student-app.jar Main -C out Main.class'
             }
         }
 
         stage('Run App') {
             steps {
-                bat 'java -jar app.jar'
+                bat 'java -classpath out Main'
             }
         }
     }
